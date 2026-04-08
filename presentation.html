@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lost Archives — Project Briefing</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --color-bg:        #1a1714;
+    --color-bg-warm:   #1f1c17;
+    --color-bg-card:   #252119;
+    --color-surface:   #2a2520;
+    --color-border:    #3d362c;
+    --color-border-lt: #4a4035;
+    --color-cream:     #f2e8d5;
+    --color-cream-dim: #c4b89e;
+    --color-gold:      #c9a96e;
+    --color-gold-dim:  #9a8052;
+    --color-white:     #faf6ef;
+    --color-muted:     #8a7e6e;
+    --font-serif:      'Playfair Display', 'Georgia', 'Times New Roman', serif;
+    --font-sans:       'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--color-bg);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide Container ── */
+  .slide {
+    width: 100%;
+    max-width: 1280px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 80px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .slide:last-child { border-bottom: none; }
+
+  /* ── Slide Number ── */
+  .slide-number {
+    position: absolute;
+    top: 40px;
+    right: 100px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* ── Typography ── */
+  .serif { font-family: var(--font-serif); }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.1;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 2.4rem;
+    color: var(--color-white);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 20px;
+  }
+
+  .body-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-cream-dim);
+    max-width: 680px;
+  }
+  .body-text.wide { max-width: 800px; }
+
+  .caption {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold-dim);
+    margin: 32px 0;
+  }
+  .divider.short { width: 40px; }
+
+  /* ── Lists ── */
+  .clean-list {
+    list-style: none;
+    padding: 0;
+  }
+  .clean-list li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 1rem;
+    color: var(--color-cream);
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.55;
+  }
+  .clean-list li:last-child { border-bottom: none; }
+  .clean-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--color-gold-dim);
+    border-radius: 50%;
+  }
+
+  .check-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--color-gold-dim);
+    border: none;
+    border-radius: 50%;
+  }
+
+  /* ── Columns ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 40px;
+  }
+  .col {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: 40px;
+  }
+  .col-label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .col h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--color-white);
+    margin-bottom: 14px;
+  }
+
+  /* ── Image Placeholder ── */
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .image-placeholder .placeholder-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* ── Thumbnails Gallery ── */
+  .thumbnails-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+  .thumbnail-frame {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 12px;
+  }
+  .thumbnail-frame img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+  .thumbnail-frame .thumb-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* ── Bottom Note ── */
+  .bottom-note {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-cream-dim);
+    font-family: var(--font-serif);
+    max-width: 720px;
+  }
+
+  /* ── Closing Line ── */
+  .closing-line {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    color: var(--color-cream-dim);
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* ── Slide 1 Specific ── */
+  .slide-title {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .slide-title .presents {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 28px;
+  }
+  .slide-title h1 {
+    font-size: 4.8rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .slide-title .subtitle {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-cream-dim);
+    margin-bottom: 48px;
+    letter-spacing: 0.02em;
+  }
+  .slide-title .premise {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-cream-dim);
+    max-width: 640px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .slide-title .url {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: var(--color-muted);
+  }
+
+  /* ── Wave Decoration (inspired by thumbnails) ── */
+  .wave-accent {
+    width: 180px;
+    height: 24px;
+    margin: 36px auto;
+    opacity: 0.25;
+  }
+  .wave-accent svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Framing Top Label ── */
+  .framing-text {
+    font-size: 0.92rem;
+    color: var(--color-cream-dim);
+    font-style: italic;
+    font-family: var(--font-serif);
+    margin-bottom: 36px;
+    max-width: 680px;
+    line-height: 1.7;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .slide { padding: 60px 40px; }
+    .slide-number { right: 40px; }
+    .two-col { grid-template-columns: 1fr; gap: 30px; }
+    .slide-title h1 { font-size: 3.2rem; }
+    .thumbnails-row { grid-template-columns: 1fr; }
+  }
+
+  /* ── Print / Export ── */
+  @media print {
+    .slide {
+      min-height: auto;
+      page-break-after: always;
+      padding: 60px 80px;
+    }
+    .slide:last-child { page-break-after: avoid; }
+    body { background: #fff; color: #1a1714; }
+    .slide-number { color: #999; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 1 — TITLE / PROJECT OPENING
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">01 / 06</div>
+  <div class="slide-title">
+
+    <p class="presents">University of Science &amp; Philosophy Presents</p>
+
+    <h1>The Lost<br>Archives</h1>
+
+    <p class="subtitle">Rare Recordings from the University of Science &amp; Philosophy</p>
+
+    <!-- Decorative wave element inspired by the thumbnail sine-wave motif -->
+    <div class="wave-accent">
+      <svg viewBox="0 0 180 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 12 C15 4, 30 4, 45 12 S75 20, 90 12 S120 4, 135 12 S165 20, 180 12"
+              stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.7"/>
+        <path d="M0 12 C15 6, 30 6, 45 12 S75 18, 90 12 S120 6, 135 12 S165 18, 180 12"
+              stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <p class="premise">
+      "The Lost Archives brings rare and rediscovered recordings from the University of Science and Philosophy back into the world, revealing voices, teachings, and ideas too important to remain hidden."
+    </p>
+
+    <p class="url">www.thelostarchives.com</p>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 2 — WHAT HAS BEEN ESTABLISHED
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">02 / 06</div>
+
+  <h3>Foundation</h3>
+  <h2>What Has Been Established</h2>
+  <div class="divider"></div>
+
+  <p class="framing-text">
+    The strategic foundation is now in place, and the project is moving from concept into visible execution.
+  </p>
+
+  <ul class="clean-list">
+    <li>Proposed project title: <strong>The Lost Archives</strong></li>
+    <li>Proposed subtitle: <strong>Rare Recordings from the University of Science &amp; Philosophy</strong></li>
+    <li>Internal brand identity &amp; positioning document created</li>
+    <li>Growth and reach strategy created</li>
+    <li>Episode production &amp; packaging workflow created</li>
+    <li><strong>thelostarchives.com</strong> secured</li>
+    <li>Intro, mid-roll, and outro direction established</li>
+    <li>Initial visual direction prepared for discussion and refinement</li>
+  </ul>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 3 — WHAT IS READY NOW
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">03 / 06</div>
+
+  <h3>Proof of Execution</h3>
+  <h2>What Is Ready Now</h2>
+  <div class="divider"></div>
+
+  <ul class="clean-list check-list">
+    <li>Intro recorded</li>
+    <li>Mid-roll recorded</li>
+    <li>Outro recorded</li>
+    <li>One pilot episode fully processed and ready</li>
+    <li>Initial website presence live on <strong>thelostarchives.com</strong></li>
+    <li>First-release queue assembled</li>
+    <li>Supporting project materials ready for team review</li>
+  </ul>
+
+  <div class="bottom-note">
+    "The project now has both strategic definition and tangible proof."
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 4 — VISUAL DIRECTION
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">04 / 06</div>
+
+  <h3>Identity</h3>
+  <h2>Visual Direction</h2>
+  <div class="divider"></div>
+
+  <p class="framing-text">
+    These two early directions are meant to help align on the right visual spirit for the project before the full system is refined.
+  </p>
+
+  <!-- Proposed Thumbnails Row -->
+  <div class="thumbnails-row">
+    <div class="thumbnail-frame">
+      <img src="thumbnail-01.jpg" alt="Proposed thumbnail — series cover with USP branding and wave motif" onerror="this.style.display='none'; this.parentElement.querySelector('.thumb-label').textContent='[ Thumbnail 01 — Place image here ]';">
+      <p class="thumb-label">Series Cover</p>
+    </div>
+    <div class="thumbnail-frame">
+      <img src="thumbnail-02.jpg" alt="Proposed thumbnail — atmospheric direction with sacred geometry and archival book" onerror="this.style.display='none'; this.parentElement.querySelector('.thumb-label').textContent='[ Thumbnail 02 — Place image here ]';">
+      <p class="thumb-label">Atmospheric Direction</p>
+    </div>
+    <div class="thumbnail-frame">
+      <img src="thumbnail-03.jpg" alt="Proposed thumbnail — editorial typographic direction with manuscript background" onerror="this.style.display='none'; this.parentElement.querySelector('.thumb-label').textContent='[ Thumbnail 03 — Place image here ]';">
+      <p class="thumb-label">Editorial Direction</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <!-- Option A -->
+    <div class="col">
+      <p class="col-label">Option A</p>
+      <h4>Editorial / Typographic</h4>
+      <div class="image-placeholder">
+        <span class="placeholder-text">Visual Reference A</span>
+      </div>
+      <p class="caption">
+        A more type-led, museum-poster direction: restrained, premium, and instantly recognizable.
+      </p>
+    </div>
+
+    <!-- Option B -->
+    <div class="col">
+      <p class="col-label">Option B</p>
+      <h4>Atmospheric / Rediscovery</h4>
+      <div class="image-placeholder">
+        <span class="placeholder-text">Visual Reference B</span>
+      </div>
+      <p class="caption">
+        A more archival and mood-led direction: rare, serious, and carefully brought back into view.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom-note">
+    "Both directions aim to make the project feel rare, serious, and discovery-driven — without becoming dusty, theatrical, or overdesigned."
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 5 — WHAT HAPPENS NEXT
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">05 / 06</div>
+
+  <h3>Next Phase</h3>
+  <h2>What Happens Next</h2>
+  <div class="divider"></div>
+
+  <ul class="clean-list">
+    <li>Refine and align the visual direction with the team</li>
+    <li>Publish the pilot / first release</li>
+    <li>Queue the next 3–5 episodes</li>
+    <li>Establish a steady weekly release cadence</li>
+    <li>Begin early discovery and outreach</li>
+    <li>Connect each release clearly to the USP online community</li>
+  </ul>
+
+  <div class="closing-line">
+    The next phase is focused on turning a strong foundation into a steady rhythm of release, discovery, and deeper engagement.
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 6 — DECISIONS / SUPPORT NEEDED
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-number">06 / 06</div>
+
+  <h3>Alignment</h3>
+  <h2>Decisions / Support Needed</h2>
+  <div class="divider"></div>
+
+  <ul class="clean-list">
+    <li>Alignment on title / subtitle / positioning direction</li>
+    <li>Feedback on visual direction</li>
+    <li>Confirmation of initial archive pieces approved for release</li>
+    <li>Alignment on the USP online community as the primary call to action</li>
+    <li>Access to any needed archive files, metadata, or source context</li>
+    <li>Support for promotion through USP-owned channels, including the student email list</li>
+    <li>Any relevant partner, influencer, or aligned contact lists that could support early reach</li>
+  </ul>
+
+  <div class="closing-line">
+    With alignment on these points, the project can move cleanly from initial build into repeatable public release.
+  </div>
+
+  <!-- Subtle closing wave -->
+  <div class="wave-accent" style="margin: 48px auto 0;">
+    <svg viewBox="0 0 180 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 12 C15 4, 30 4, 45 12 S75 20, 90 12 S120 4, 135 12 S165 20, 180 12"
+            stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.5"/>
+    </svg>
+  </div>
+</section>
+
+</body>
+</html>
