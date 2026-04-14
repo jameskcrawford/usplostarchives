@@ -240,6 +240,28 @@
     text-align: center;
   }
 
+  /* ── Lightbox ── */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(6, 6, 20, 0.92);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img {
+    max-width: 85vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  }
+  .thumbnail-frame { cursor: pointer; }
+
   /* ── Bottom Note ── */
   .bottom-note {
     margin-top: 48px;
@@ -584,6 +606,23 @@
     </svg>
   </div>
 </section>
+
+<!-- Lightbox overlay -->
+<div class="lightbox-overlay" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="Enlarged thumbnail">
+</div>
+
+<script>
+document.querySelectorAll('.thumbnail-frame img').forEach(function(img) {
+  img.addEventListener('click', function() {
+    document.getElementById('lightbox-img').src = this.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active');
+});
+</script>
 
 </body>
 </html>
